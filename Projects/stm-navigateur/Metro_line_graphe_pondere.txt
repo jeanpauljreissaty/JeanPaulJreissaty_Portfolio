@@ -1,0 +1,76 @@
+green line:
+Angrignon Monk 0.84
+Monk Jolicoeur 1.06
+Jolicoeur Verdun 0.76
+Verdun DeL'Eglise 0.56
+DeL'Eglise LaSalle 0.81
+LaSalle Charlevoix 0.71
+Charlevoix Lionel-Groulx 1.08
+Lionel-Groulx Atwater 1.39
+Atwater Guy-Concordia 0.68
+Guy-Concordia Peel 0.59
+Peel McGill 0.30
+McGill Place-des-Arts 0.35
+Place-des-Arts Saint-Laurent 0.35
+Saint-Laurent Berri-UQUAM 0.34
+Berri-UQUAM Beaudry 0.38
+Beaudry Papineau 0.50
+Papineau Frontenac 1.16
+Frontenac Prefontaine 1.00
+Prefontaine Joliette 0.38
+Joliette Pie-IX 0.77
+Pie-IX Viau 0.62
+Viau Assomption 0.90
+Assomption Cadillac 0.78
+Cadillac Langelier 0.52
+Langelier Radisson 0.62
+Radisson Honore-Beaugrand 0.72
+
+orange line:
+Cote-Vertu DuCollege 0.78
+DuCollege DeLaSavane 1.28
+DeLaSavane Namur 0.79
+Namur Plamondon 0.99
+Plamondon Cote-Sainte-Catherine 0.45
+Cote-Sainte-Catherine Snowdon 0.69
+Snowdon Villa-Maria 0.88
+Villa-Maria Vendome 1.41
+Vendome Place-Saint-Henri 1.45
+Place-Saint-Henri Lionel-Groulx 0.58
+Lionel-Groulx Georges-Vanier 0.76
+Georges-Vanier Lucien-L'Allier 0.53
+Lucien-L'Allier Bonaventure 0.38
+Bonaventure Square-Victoria-OACI 0.39
+Square-Victoria-OACI Place-d'Armes 0.36
+Place-d'Armes Champ-de-Mars 0.37
+Champ-de-Mars Berri-UQUAM 0.72
+Berri-UQUAM Sherbrooke 0.58
+Sherbrooke Mont-Royal 0.93
+Mont-Royal Laurier 0.50
+Laurier Rosemont 0.75
+Rosemont Beaubien 0.54
+Beaubien Jean-Talon 0.71
+Jean-Talon Jarry 0.98
+Jarry Cremazie 0.83
+Cremazie Sauve 1.28
+Sauve Henri-Bourassa 0.77
+Henri-Bourassa Cartier 1.10
+Cartier DeLaConcorde 2.07
+DeLaConcorde Montmorency 0.85
+
+yellow line:
+Berri-UQUAM Jean-Drapeau 2.36
+Jean-Drapeau Longueuil-Universite-de-Sherbrooke 1.57
+
+blue line:
+Snowdon Cote-des-Neiges 0.96
+Cote-des-Neiges Universite-de-Montreal 0.76
+Universite-de-Montreal Edouard-Montpetit 0.67
+Edouard-Montpetit Outremont 1.09
+Outremont Acadie 0.73
+Acadie Parc 0.73
+Parc DeCastelnau 0.49
+DeCastelnau Jean-Talon 0.47
+Jean-Talon Fabre 0.84
+Fabre D'Iberville 0.64
+D'Iberville Saint-Michel 0.61

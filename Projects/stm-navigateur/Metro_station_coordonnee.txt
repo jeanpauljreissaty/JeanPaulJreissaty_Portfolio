@@ -1,0 +1,85 @@
+green line:
+Angrignon -216 -280
+Monk -168 -280
+Jolicoeur -121 -280
+Verdun -73 -280
+DeL'Eglise -25 -280
+LaSalle 8 -259
+Charlevoix 40 -238
+Lionel-Groulx -6 -208
+Intersection1 -74 -164
+Atwater -44 -143
+Guy-Concordia -13 -122
+Peel 18 -101
+McGill 48 -80
+Place-des-Arts 97 -46
+Saint-Laurent 135 -20
+Berri-UQUAM 184 14
+Beaudry 218 37
+Papineau 251 61
+Frontenac 285 84
+Prefontaine 241 120
+Joliette 272 141
+Pie-IX 303 163
+Viau 334 184
+Assomption 297 220
+Cadillac 330 241
+Langelier 362 262
+Radisson 395 283
+Honore-Beaugrand 427 304
+
+orange line:
+Cote-Vertu -427 20
+DuCollege -392 -3
+DeLaSavane -357 -25
+Namur -323 -48
+Plamondon -288 -71
+Cote-Sainte-Catherine -253 -93
+Snowdon -218 -116
+Villa-Maria -168 -149
+Vendome -118 -182
+Place-Saint-Henri -68 -215
+Intersection2 -43 -232
+Lionel-Groulx -6 -208
+Georges-Vanier 43 -176
+Lucien-L'Allier 93 -144 
+Bonaventure 142 -112
+Square-Victoria-OACI 177 -89
+Place-d'Armes 212 -67
+Champ-de-Mars 247 -44
+Intersection3 259 -36
+Berri-UQUAM 184 14
+Sherbrooke 151 36
+Mont-Royal 118 58
+Laurier 85 80
+Rosemont 52 102
+Beaubien 19 124
+Jean-Talon -14 146
+Jarry -48 169
+Cremazie -83 192
+Sauve -117 214
+Henri-Bourassa -152 237
+Cartier -186 260
+DeLaConcorde -285 260 
+Montmorency -384 260
+
+yellow line:
+Berri-UQUAM 184 14
+Jean-Drapeau 377 14
+Longueuil-Universite-de-Sherbrooke 427 48
+
+blue line:
+Snowdon -218 -116
+Cote-des-Neiges -152 -71
+Universite-de-Montreal -107 -40
+Edouard-Montpetit -56 -4
+Intersection4 -19 21
+Outremont -48 41
+Acadie -76 61
+Intersection5 -105 81
+Parc -85 95
+DeCastelnau -54 118
+Jean-Talon -14 146
+Fabre 30 177
+D'Iberville 74 209
+Saint-Michel 118 240
