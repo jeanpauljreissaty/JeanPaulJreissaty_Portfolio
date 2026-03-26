@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jean-Paul Jreissaty — Génie Logiciel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue-deep:    #0a1628;
+      --blue-mid:     #1a3a6b;
+      --blue-bright:  #2563eb;
+      --blue-electric:#60a5fa;
+      --blue-light:   #bfdbfe;
+      --white:        #f8faff;
+      --accent:       #38bdf8;
+      --accent2:      #7c3aed;
+      --glass:        rgba(255,255,255,0.06);
+      --glass-border: rgba(96,165,250,0.2);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--blue-deep);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── BACKGROUND ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37,99,235,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 60% 30%, rgba(124,58,237,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* ─── FLOATING ORBS ─── */
+    .orb {
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+      filter: blur(80px); opacity: 0.18;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--blue-bright); top: -100px; left: -150px; animation-duration: 14s; }
+    .orb-2 { width: 350px; height: 350px; background: var(--accent); bottom: -80px; right: -100px; animation-duration: 10s; animation-delay: -4s; }
+    .orb-3 { width: 250px; height: 250px; background: var(--accent2); top: 40%; left: 55%; animation-duration: 16s; animation-delay: -7s; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(10,22,40,0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.3rem;
+      color: var(--blue-electric);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(248,250,255,0.65); text-decoration: none;
+      font-size: 0.875rem; font-weight: 400; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-github {
+      display: inline-flex !important; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.9rem !important; border-radius: 8px;
+      border: 1px solid rgba(96,165,250,0.35) !important;
+      color: var(--blue-electric) !important;
+      transition: background 0.2s, border-color 0.2s !important;
+    }
+    .nav-github:hover { background: rgba(37,99,235,0.2) !important; border-color: var(--blue-electric) !important; }
+
+    /* ─── WRAPPER ─── */
+    .wrapper { position: relative; z-index: 1; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 7rem 6vw 4rem;
+    }
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(37,99,235,0.2);
+      border: 1px solid rgba(96,165,250,0.35);
+      color: var(--blue-electric);
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 100px;
+      margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .tag-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: 0.5; }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800; line-height: 0.95;
+      letter-spacing: -0.04em;
+      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    h1 .name-line { display: block; color: var(--white); }
+    h1 .highlight {
+      display: block;
+      background: linear-gradient(110deg, var(--blue-electric), var(--accent), var(--accent2));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      margin-top: 1.8rem; max-width: 540px;
+      color: rgba(248,250,255,0.55); font-size: 1.05rem; line-height: 1.7;
+      opacity: 0; animation: fadeUp 0.8s 0.35s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.8rem; border-radius: 12px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue-bright), var(--accent));
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(37,99,235,0.45);
+    }
+    .btn-primary:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.6); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue-electric);
+      border: 1px solid var(--glass-border);
+    }
+    .btn-outline:hover { background: var(--glass); border-color: var(--blue-electric); }
+
+    /* ─── SCROLL INDICATOR ─── */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: rgba(248,250,255,0.3); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      animation: fadeIn 1s 1.2s both;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--blue-electric), transparent);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { transform: scaleY(1); opacity: 0.6; }
+      50% { transform: scaleY(0.4); opacity: 0.2; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 6rem 6vw; }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      color: var(--white); margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* ─── SKILLS CHIPS ─── */
+    #competences { border-top: 1px solid var(--glass-border); }
+
+    .skills-grid {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+
+    .chip {
+      padding: 0.55rem 1.2rem;
+      border-radius: 100px;
+      font-size: 0.85rem; font-weight: 400;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--blue-light);
+      backdrop-filter: blur(8px);
+      transition: all 0.25s;
+      cursor: default;
+    }
+    .chip:hover {
+      background: rgba(37,99,235,0.25);
+      border-color: var(--blue-electric);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+    }
+    .chip.lang { border-color: rgba(56,189,248,0.3); }
+    .chip.tool { border-color: rgba(124,58,237,0.3); }
+
+    /* ─── PROJECTS ─── */
+    #projets { border-top: 1px solid var(--glass-border); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 2rem;
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--blue-bright), var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+      border-color: rgba(96,165,250,0.45);
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-year {
+      font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 0.6rem; font-weight: 500;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--white); margin-bottom: 0.8rem;
+    }
+
+    .card-desc {
+      color: rgba(248,250,255,0.55); font-size: 0.88rem; line-height: 1.65;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .card-tag {
+      font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 100px;
+      background: rgba(37,99,235,0.2); color: var(--blue-electric);
+      border: 1px solid rgba(96,165,250,0.2);
+    }
+
+    /* ─── TIMELINE ─── */
+    #formation { border-top: 1px solid var(--glass-border); }
+
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 6px; bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--blue-bright), var(--accent), rgba(56,189,248,0.1));
+    }
+
+    .tl-item { position: relative; margin-bottom: 2.5rem; }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -2.4rem; top: 6px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--blue-bright);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(56,189,248,0.5);
+    }
+
+    .tl-date { font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.3rem; }
+    .tl-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .tl-sub { font-size: 0.88rem; color: var(--blue-electric); margin-top: 0.15rem; }
+
+    /* ─── EXPERIENCE ─── */
+    #experience { border-top: 1px solid var(--glass-border); }
+
+    .exp-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 2rem 2.5rem;
+      backdrop-filter: blur(12px);
+      max-width: 700px;
+    }
+
+    .exp-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .exp-badge {
+      padding: 0.3rem 0.85rem; border-radius: 100px;
+      background: rgba(37,99,235,0.2); color: var(--blue-electric);
+      font-size: 0.75rem; font-weight: 500;
+      border: 1px solid rgba(96,165,250,0.25);
+    }
+    .exp-period { font-size: 0.8rem; color: rgba(248,250,255,0.4); }
+
+    .exp-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .exp-company { font-size: 0.9rem; color: var(--accent); margin-bottom: 1rem; }
+    .exp-list { list-style: none; }
+    .exp-list li {
+      color: rgba(248,250,255,0.6); font-size: 0.88rem; line-height: 1.65;
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .exp-list li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--blue-electric); font-size: 0.8rem;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      border-top: 1px solid var(--glass-border);
+      text-align: center;
+    }
+
+    .contact-box {
+      max-width: 600px; margin: 0 auto;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px; padding: 3.5rem 3rem;
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+    }
+    .contact-box::after {
+      content: '';
+      position: absolute; inset: -1px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(56,189,248,0.08), rgba(124,58,237,0.1));
+      pointer-events: none;
+    }
+
+    .contact-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      color: var(--white); margin-bottom: 1rem;
+    }
+
+    .contact-sub {
+      color: rgba(248,250,255,0.5); font-size: 0.95rem; line-height: 1.65; margin-bottom: 2rem;
+    }
+
+    .contact-links {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;
+    }
+
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: 12px;
+      text-decoration: none; font-size: 0.88rem; font-weight: 500;
+      border: 1px solid var(--glass-border);
+      color: var(--blue-light);
+      background: rgba(255,255,255,0.04);
+      transition: all 0.25s;
+    }
+    .contact-link:hover {
+      background: rgba(37,99,235,0.25);
+      border-color: var(--blue-electric);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .contact-link svg { width: 16px; height: 16px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center; padding: 2rem;
+      color: rgba(248,250,255,0.2); font-size: 0.78rem;
+      border-top: 1px solid var(--glass-border);
+      position: relative; z-index: 1;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--blue-bright), var(--accent));
+      border-radius: 100px; margin-bottom: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Nav -->
+  <nav>
+    <span class="nav-logo">JP.</span>
+    <ul class="nav-links">
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#formation">Formation</a></li>
+      <li><a href="#experience">Expérience</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://github.com/jeanpauljreissaty/JeanPaulJreissaty_Portfolio.git" target="_blank" rel="noopener" class="nav-github">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+  </nav>
+
+  <div class="wrapper">
+
+    <!-- HERO -->
+    <section id="hero" style="position:relative;">
+      <div class="tag"><span class="tag-dot"></span> Ouvert aux opportunités — Montréal, QC</div>
+      <h1>
+        <span class="name-line">Jean-Paul</span>
+        <span class="name-line">Jreissaty</span>
+        <span class="highlight">Génie Logiciel</span>
+      </h1>
+      <p class="hero-sub">
+        Étudiant en génie logiciel à Polytechnique Montréal. Passionné par la conception, l'optimisation de code et le développement d'applications. 
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16v16H4z" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+          Me contacter
+        </a>
+        <a href="#projets" class="btn btn-outline">Voir mes projets →</a>
+        <a href="https://github.com/jeanpauljreissaty/JeanPaulJreissaty_Portfolio.git" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          Voir mon GitHub
+        </a>
+      </div>
+      <div class="scroll-hint">
+        <span>Défiler</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- COMPÉTENCES -->
+    <section id="competences">
+      <p class="section-label reveal">Stack technique</p>
+      <h2 class="section-title reveal">Compétences</h2>
+      <div class="divider reveal"></div>
+
+      <p style="color:rgba(248,250,255,0.45); margin-bottom:1.5rem; font-size:0.85rem;" class="reveal">Langages</p>
+      <div class="skills-grid reveal" style="margin-bottom:2rem;">
+        <span class="chip lang">C++</span>
+        <span class="chip lang">Python</span>
+        <span class="chip lang">SQL</span>
+        <span class="chip lang">X86 Assembly</span>
+        <span class="chip lang">Html</span>
+        <span class="chip lang">VHDL</span>
+      </div>
+
+      <p style="color:rgba(248,250,255,0.45); margin-bottom:1.5rem; font-size:0.85rem;" class="reveal">Outils & technologies</p>
+      <div class="skills-grid reveal">
+        <span class="chip tool">Git</span>
+        <span class="chip tool">Bash</span>
+        <span class="chip tool">Linux</span>
+        <span class="chip tool">Pygame</span>
+        <span class="chip tool">Tkinter</span>
+        <span class="chip tool">SQLite</span>
+        <span class="chip tool">VSCode</span>
+        <span class="chip tool">Spyder</span>
+      </div>
+    </section>
+
+        <!-- PROJETS -->
+    <section id="projets">
+      <p class="section-label reveal">Ce que j'ai construit</p>
+      <h2 class="section-title reveal">Projets</h2>
+      <div class="divider reveal"></div>
+
+      <div class="projects-grid">
+          <div class="card reveal">
+        <div class="card-year">2026</div>
+        <div class="card-title">🚇 Simulateur de file d'attente STM</div>
+        <div class="card-desc">Simulation d'une station de métro en C++ — passagers réguliers et prioritaires générés aléatoirement, acheminés vers le turniquet le moins occupé. File générique implémentée avec templates. Log de simulation complet avec statistiques : temps d'attente moyen et débit par turniquet.</div>
+        <div class="card-tags">
+          <span class="card-tag">C++</span>
+          <span class="card-tag">POO</span>
+          <span class="card-tag">Héritage</span>
+          <span class="card-tag">Templates</span>
+          <span class="card-tag">Structures de données</span>
+        </div>
+      </div>
+
+        <div class="card reveal">
+          <div class="card-year">2025</div>
+          <div class="card-title">🎮 Pac-Man Engine</div>
+          <div class="card-desc">Moteur de jeu complet en Python — mouvements, détection de collisions, et algorithmes de comportement des fantômes codés à partir de zéro.</div>
+          <div class="card-tags">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Pygame</span>
+            <span class="card-tag">POO</span>
+            <span class="card-tag">Algorithmes</span>
+          </div>
+        </div>
+
+
+        <div class="card reveal">
+          <div class="card-year">2025</div>
+          <div class="card-title">⚙️ Microprocesseur SIM 3000</div>
+          <div class="card-desc">Conception d'un microprocesseur sur breadboard, câblage physique et développement d'un langage assembleur personnalisé.</div>
+          <div class="card-tags">
+            <span class="card-tag">Assembleur</span>
+            <span class="card-tag">IA-32</span>
+            <span class="card-tag">Logique numérique</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-year">2025</div>
+          <div class="card-title">🐸 Frogger</div>
+          <div class="card-desc">Recréation complète du jeu Frogger — moteur de déplacement, voitures et bûches à vitesses aléatoires, détection de collisions par rectangles, gestion des vies et logique de victoire. Code structuré en modules indépendants.</div>
+          <div class="card-tags">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Pygame</span>
+            <span class="card-tag">POO</span>
+            <span class="card-tag">Détection de collisions</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-year">2024</div>
+          <div class="card-title">🏦 Banque Grasséenne</div>
+          <div class="card-desc">Simulation bancaire complète avec interface graphique, création de comptes, transferts, mode admin sécurisé et persistance via SQLite.</div>
+          <div class="card-tags">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Tkinter</span>
+            <span class="card-tag">SQLite</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-year">2024</div>
+          <div class="card-title">🚇 Navigateur STM</div>
+          <div class="card-desc">Application de navigation du métro de Montréal utilisant l'algorithme de Dijkstra sur un graphe pondéré. Trouve le trajet optimal entre deux stations, détecte la station la plus proche par coordonnées GPS, et visualise le trajet en temps réel sur une carte graphique.</div>
+          <div class="card-tags">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Dijkstra</span>
+            <span class="card-tag">Graphes</span>
+            <span class="card-tag">Turtle</span>
+            <span class="card-tag">NumPy</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-year">2024</div>
+          <div class="card-title">🍽️ Restaurant</div>
+          <div class="card-desc">Simulation complète d'un restaurant en Python — réservation avec validation de nom, plan de salle interactif, menu graphique sur parchemin, prise de commande par checkboxes, rendu des plats dessinés en Pygame, et génération d'une facture avec calcul de taxes TPS/TVQ et données météo en temps réel.</div>
+          <div class="card-tags">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Tkinter</span>
+            <span class="card-tag">Pygame</span>
+            <span class="card-tag">PIL</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-year">2024</div>
+          <div class="card-title">🏅 Olympiade — Course aux obstacles</div>
+          <div class="card-desc">Jeu olympique solo et multijoueur avec un adversaire contrôlé par une IA — l'agent évite les projectiles en temps réel grâce à un algorithme de fuite basé sur la proximité. Classement des joueurs via base de données SQLite, écran de chargement animé, menu principal et podium final.</div>
+          <div class="card-tags">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Pygame</span>
+            <span class="card-tag">SQLite</span>
+            <span class="card-tag">IA</span>
+            <span class="card-tag">POO</span>
+        </div>
+      </div>
+
+      </div>
+    </section>
+
+
+    <!-- FORMATION -->
+    <section id="formation">
+      <p class="section-label reveal">Parcours académique</p>
+      <h2 class="section-title reveal">Formation</h2>
+      <div class="divider reveal"></div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-date">2025 — aujourd'hui</div>
+          <div class="tl-title">Baccalauréat en Génie Logiciel</div>
+          <div class="tl-sub">Polytechnique Montréal</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-date">2023 — 2025</div>
+          <div class="tl-title">DEC en Sciences Informatiques & Mathématiques</div>
+          <div class="tl-sub">Collège André-Grasset</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPÉRIENCE -->
+    <section id="experience">
+      <p class="section-label reveal">Expérience professionnelle</p>
+      <h2 class="section-title reveal">Expérience</h2>
+      <div class="divider reveal"></div>
+
+      <div class="exp-card reveal">
+        <div class="exp-meta">
+          <span class="exp-badge">Temps plein saisonnier</span>
+          <span class="exp-period">2023 – 2025</span>
+        </div>
+        <div class="exp-title">Aménagement paysager & entretien de piscines</div>
+        <div class="exp-company">Perform Net — Laval, QC</div>
+        <ul class="exp-list">
+          <li>Entretien des systèmes de filtration et gestion de l'équilibre chimique des piscines</li>
+          <li>Routines d'entretien pour le gazon et l'aménagement paysager</li>
+          <li>Désinstallation et retrait d'infrastructures de façon autonome et rigoureuse</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-box reveal">
+        <div class="contact-title">Travaillons ensemble</div>
+        <div class="contact-sub">
+          Je suis disponible pour des stages, projets collaboratifs ou toute opportunité en génie logiciel. N'hésite pas à me rejoindre!
+        </div>
+        <div class="contact-links">
+          <a  class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+            jeanpaul.jreissaty@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/jp-jreissaty" target="_blank" rel="noopener" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+            +1 514-969-7756
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /wrapper -->
+
+  <footer>
+    <p>© 2026 Jean-Paul Jreissaty </p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
