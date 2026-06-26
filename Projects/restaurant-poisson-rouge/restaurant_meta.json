@@ -1,0 +1,7 @@
+{
+  "title": "🍽️ Restaurant",
+  "desc":  "Simulation complète d'un restaurant — réservation, plan de salle, menu graphique, commande par checkboxes, plats en Pygame et facture TPS/TVQ avec météo en temps réel.",
+  "tags":  ["Python", "Tkinter", "Pygame", "PIL"],
+  "date":  "2024-09-01",
+  "link":  null
+}
