@@ -1,0 +1,7 @@
+{
+  "title": "🎮 Pac-Man Engine",
+  "desc":  "Moteur de jeu complet en Python — mouvements, détection de collisions, et algorithmes de comportement des fantômes codés à partir de zéro.",
+  "tags":  ["Python", "Pygame", "POO", "Algorithmes"],
+  "date":  "2025-12-01",
+  "link":  null
+}
