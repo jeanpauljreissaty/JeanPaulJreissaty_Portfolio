@@ -1,0 +1,7 @@
+{
+  "title": "🏦 Banque Grasséenne",
+  "desc":  "Simulation bancaire complète avec interface graphique, création de comptes, transferts, mode admin sécurisé et persistance via SQLite.",
+  "tags":  ["Python", "Tkinter", "SQLite"],
+  "date":  "2024-12-01",
+  "link":  null
+}
