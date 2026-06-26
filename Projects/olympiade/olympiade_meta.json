@@ -1,0 +1,7 @@
+{
+  "title": "🏅 Olympiade — Course aux obstacles",
+  "desc":  "Jeu olympique solo/multijoueur avec adversaire IA qui évite les projectiles en temps réel. Classement SQLite, écran de chargement animé et podium final.",
+  "tags":  ["Python", "Pygame", "SQLite", "IA", "POO"],
+  "date":  "2024-08-01",
+  "link":  null
+}
