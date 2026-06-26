@@ -1,0 +1,7 @@
+{
+  "title": "🚇 Navigateur STM",
+  "desc":  "Application de navigation du métro de Montréal — algorithme de Dijkstra, détection de la station la plus proche par GPS, visualisation en temps réel.",
+  "tags":  ["Python", "Dijkstra", "Graphes", "Turtle", "NumPy"],
+  "date":  "2024-10-01",
+  "link":  null
+}
