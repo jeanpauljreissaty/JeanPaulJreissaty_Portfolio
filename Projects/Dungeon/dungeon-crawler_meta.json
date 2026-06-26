@@ -1,0 +1,7 @@
+{
+  "title": "🗡️ Dungeon Crawler",
+  "desc":  "Aventure textuelle en C++ — navigation 4 directions, objets polymorphes (éclairage, déverrouillage), système de commandes par lambdas et STL.",
+  "tags":  ["C++", "POO", "STL", "Lambdas"],
+  "date":  "2026-06-13",
+  "link":  null
+}
