@@ -284,12 +284,123 @@
       margin-bottom: 1.2rem;
     }
 
-    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0; }
     .card-tag {
       font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 100px;
       background: rgba(37,99,235,0.2); color: var(--blue-electric);
       border: 1px solid rgba(96,165,250,0.2);
     }
+
+    .card-github-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      margin-top: 1.1rem; font-size: 0.78rem; color: var(--blue-electric);
+      text-decoration: none; opacity: 0.7; transition: opacity 0.2s;
+    }
+    .card-github-link:hover { opacity: 1; }
+
+    /* ─── SEE-ALL CARD ─── */
+    .card-see-all {
+      cursor: pointer;
+      border: 1px dashed rgba(96,165,250,0.35);
+      background: rgba(37,99,235,0.06);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; gap: 0.6rem;
+    }
+    .card-see-all:hover {
+      border-color: var(--blue-electric);
+      background: rgba(37,99,235,0.14);
+    }
+    .see-all-bubble {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(37,99,235,0.2);
+      border: 1px solid rgba(96,165,250,0.3);
+      margin-bottom: 0.4rem;
+    }
+    .see-all-bubble svg { width: 22px; height: 22px; color: var(--blue-electric); }
+    .see-all-count {
+      font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 500;
+    }
+
+    /* ─── ALL-PROJECTS MODAL ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: var(--blue-deep);
+      /* Flex column: topbar stays fixed, only body scrolls */
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transform: translateY(30px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1; pointer-events: all; transform: translateY(0);
+    }
+
+    .modal-topbar {
+      /* Always visible — never scrolls */
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 1.1rem 6vw;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 10;
+    }
+
+    .modal-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(37,99,235,0.18);
+      border: 1px solid rgba(96,165,250,0.45);
+      color: var(--white); border-radius: 12px;
+      padding: 0.6rem 1.2rem; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+      transition: all 0.2s; white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.2);
+    }
+    .modal-back:hover {
+      background: rgba(37,99,235,0.35);
+      border-color: var(--blue-electric);
+      transform: translateX(-2px);
+      box-shadow: 0 4px 20px rgba(37,99,235,0.35);
+    }
+    .modal-back svg { flex-shrink: 0; }
+
+    .modal-back-label {
+      font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
+      color: var(--white);
+    }
+    .modal-back-sub { font-size: 0.8rem; color: rgba(248,250,255,0.35); margin-left: auto; }
+
+    .modal-body {
+      /* Only this part scrolls */
+      flex: 1; overflow-y: auto;
+      padding: 3rem 6vw 5rem;
+      position: relative;
+    }
+    .modal-body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37,99,235,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.12) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* ─── GITHUB SYNC BADGE ─── */
+    .sync-badge {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-size: 0.72rem; color: rgba(248,250,255,0.35);
+      margin-top: 1.5rem; letter-spacing: 0.04em;
+    }
+    .sync-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px rgba(74,222,128,0.6);
+    }
+    .sync-dot.loading { background: var(--accent); animation: pulse 1.5s infinite; }
+    .sync-dot.error { background: rgba(248,250,255,0.2); box-shadow: none; }
 
     /* ─── TIMELINE ─── */
     #formation { border-top: 1px solid var(--glass-border); }
@@ -516,108 +627,15 @@
       <h2 class="section-title reveal">Projets</h2>
       <div class="divider reveal"></div>
 
-      <div class="projects-grid">
-          <div class="card reveal">
-        <div class="card-year">2026</div>
-        <div class="card-title">🚇 Simulateur de file d'attente STM</div>
-        <div class="card-desc">Simulation d'une station de métro en C++ — passagers réguliers et prioritaires générés aléatoirement, acheminés vers le turniquet le moins occupé. File générique implémentée avec templates. Log de simulation complet avec statistiques : temps d'attente moyen et débit par turniquet.</div>
-        <div class="card-tags">
-          <span class="card-tag">C++</span>
-          <span class="card-tag">POO</span>
-          <span class="card-tag">Héritage</span>
-          <span class="card-tag">Templates</span>
-          <span class="card-tag">Structures de données</span>
-        </div>
-      </div>
+      <!-- 3 most recent + "see all" card — populated by JS -->
+      <div class="projects-grid reveal" id="featured-grid"></div>
 
-        <div class="card reveal">
-          <div class="card-year">2025</div>
-          <div class="card-title">🎮 Pac-Man Engine</div>
-          <div class="card-desc">Moteur de jeu complet en Python — mouvements, détection de collisions, et algorithmes de comportement des fantômes codés à partir de zéro.</div>
-          <div class="card-tags">
-            <span class="card-tag">Python</span>
-            <span class="card-tag">Pygame</span>
-            <span class="card-tag">POO</span>
-            <span class="card-tag">Algorithmes</span>
-          </div>
-        </div>
-
-
-        <div class="card reveal">
-          <div class="card-year">2025</div>
-          <div class="card-title">⚙️ Microprocesseur SIM 3000</div>
-          <div class="card-desc">Conception d'un microprocesseur sur breadboard, câblage physique et développement d'un langage assembleur personnalisé.</div>
-          <div class="card-tags">
-            <span class="card-tag">Assembleur</span>
-            <span class="card-tag">IA-32</span>
-            <span class="card-tag">Logique numérique</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-year">2025</div>
-          <div class="card-title">🐸 Frogger</div>
-          <div class="card-desc">Recréation complète du jeu Frogger — moteur de déplacement, voitures et bûches à vitesses aléatoires, détection de collisions par rectangles, gestion des vies et logique de victoire. Code structuré en modules indépendants.</div>
-          <div class="card-tags">
-            <span class="card-tag">Python</span>
-            <span class="card-tag">Pygame</span>
-            <span class="card-tag">POO</span>
-            <span class="card-tag">Détection de collisions</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-year">2024</div>
-          <div class="card-title">🏦 Banque Grasséenne</div>
-          <div class="card-desc">Simulation bancaire complète avec interface graphique, création de comptes, transferts, mode admin sécurisé et persistance via SQLite.</div>
-          <div class="card-tags">
-            <span class="card-tag">Python</span>
-            <span class="card-tag">Tkinter</span>
-            <span class="card-tag">SQLite</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-year">2024</div>
-          <div class="card-title">🚇 Navigateur STM</div>
-          <div class="card-desc">Application de navigation du métro de Montréal utilisant l'algorithme de Dijkstra sur un graphe pondéré. Trouve le trajet optimal entre deux stations, détecte la station la plus proche par coordonnées GPS, et visualise le trajet en temps réel sur une carte graphique.</div>
-          <div class="card-tags">
-            <span class="card-tag">Python</span>
-            <span class="card-tag">Dijkstra</span>
-            <span class="card-tag">Graphes</span>
-            <span class="card-tag">Turtle</span>
-            <span class="card-tag">NumPy</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-year">2024</div>
-          <div class="card-title">🍽️ Restaurant</div>
-          <div class="card-desc">Simulation complète d'un restaurant en Python — réservation avec validation de nom, plan de salle interactif, menu graphique sur parchemin, prise de commande par checkboxes, rendu des plats dessinés en Pygame, et génération d'une facture avec calcul de taxes TPS/TVQ et données météo en temps réel.</div>
-          <div class="card-tags">
-            <span class="card-tag">Python</span>
-            <span class="card-tag">Tkinter</span>
-            <span class="card-tag">Pygame</span>
-            <span class="card-tag">PIL</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-year">2024</div>
-          <div class="card-title">🏅 Olympiade — Course aux obstacles</div>
-          <div class="card-desc">Jeu olympique solo et multijoueur avec un adversaire contrôlé par une IA — l'agent évite les projectiles en temps réel grâce à un algorithme de fuite basé sur la proximité. Classement des joueurs via base de données SQLite, écran de chargement animé, menu principal et podium final.</div>
-          <div class="card-tags">
-            <span class="card-tag">Python</span>
-            <span class="card-tag">Pygame</span>
-            <span class="card-tag">SQLite</span>
-            <span class="card-tag">IA</span>
-            <span class="card-tag">POO</span>
-        </div>
-      </div>
-
+      <!-- GitHub sync badge -->
+      <div class="sync-badge" id="sync-badge">
+        <span class="sync-dot loading" id="sync-dot"></span>
+        <span id="sync-label">Synchronisation GitHub…</span>
       </div>
     </section>
-
 
     <!-- FORMATION -->
     <section id="formation">
@@ -648,7 +666,7 @@
       <div class="exp-card reveal">
         <div class="exp-meta">
           <span class="exp-badge">Temps plein saisonnier</span>
-          <span class="exp-period">2023 – 2025</span>
+          <span class="exp-period">2023 – 2026</span>
         </div>
         <div class="exp-title">Aménagement paysager & entretien de piscines</div>
         <div class="exp-company">Perform Net — Laval, QC</div>
@@ -686,22 +704,295 @@
 
   </div><!-- /wrapper -->
 
-  <footer>
+  <footer> 
     <p>© 2026 Jean-Paul Jreissaty </p>
   </footer>
 
+  <!-- ─── ALL PROJECTS MODAL — outside .wrapper so z-index:300 beats nav:100 ─── -->
+  <div class="modal-overlay" id="allProjectsModal" role="dialog" aria-modal="true">
+    <div class="modal-topbar">
+      <button class="modal-back" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Page principale
+      </button>
+      <span class="modal-back-label">Portfolio complet</span>
+      <span class="modal-back-sub" id="modal-count-label"></span>
+    </div>
+    <div class="modal-body">
+      <div class="projects-grid" id="all-projects-grid"></div>
+    </div>
+  </div>
+
   <script>
-    // Scroll reveal
+    const GITHUB_USER = 'jeanpauljreissaty';
+    const PORTFOLIO_REPO = 'JeanPaulJreissaty_Portfolio';
+    const API_BASE = `https://api.github.com/repos/${GITHUB_USER}/${PORTFOLIO_REPO}`;
+    const CACHE_KEY = 'jp_projects_cache';
+    const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+    const HARDCODED_PROJECTS = [
+      {
+        title: '🚇 Simulateur de file d\'attente STM',
+        desc: 'Simulation d\'une station de métro en C++ — passagers réguliers et prioritaires générés aléatoirement, acheminés vers le turniquet le moins occupé. File générique implémentée avec templates. Log complet avec temps d\'attente moyen et débit par turniquet.',
+        tags: ['C++', 'POO', 'Héritage', 'Templates', 'Structures de données'],
+        date: '2026-04-22', link: null
+      },
+      {
+        title: '🎮 Pac-Man Engine',
+        desc: 'Moteur de jeu complet en Python — mouvements, détection de collisions, et algorithmes de comportement des fantômes codés à partir de zéro.',
+        tags: ['Python', 'Pygame', 'POO', 'Algorithmes'],
+        date: '2025-12-01', link: null
+      },
+      {
+        title: '⚙️ Microprocesseur SIM 3000',
+        desc: 'Conception d\'un microprocesseur sur breadboard, câblage physique et développement d\'un langage assembleur personnalisé.',
+        tags: ['Assembleur', 'IA-32', 'Logique numérique'],
+        date: '2025-10-01', link: null
+      },
+      {
+        title: '🐸 Frogger',
+        desc: 'Recréation complète du jeu Frogger — moteur de déplacement, voitures et bûches à vitesses aléatoires, détection de collisions par rectangles, gestion des vies et logique de victoire.',
+        tags: ['Python', 'Pygame', 'POO', 'Détection de collisions'],
+        date: '2025-09-01', link: null
+      },
+      {
+        title: '🏦 Banque Grasséenne',
+        desc: 'Simulation bancaire complète avec interface graphique, création de comptes, transferts, mode admin sécurisé et persistance via SQLite.',
+        tags: ['Python', 'Tkinter', 'SQLite'],
+        date: '2024-12-01', link: null
+      },
+      {
+        title: '🚇 Navigateur STM',
+        desc: 'Application de navigation du métro de Montréal utilisant l\'algorithme de Dijkstra sur un graphe pondéré. Trouve le trajet optimal, détecte la station la plus proche par GPS, et visualise le trajet en temps réel.',
+        tags: ['Python', 'Dijkstra', 'Graphes', 'Turtle', 'NumPy'],
+        date: '2024-10-01', link: null
+      },
+      {
+        title: '🍽️ Restaurant',
+        desc: 'Simulation complète d\'un restaurant — réservation, plan de salle interactif, menu graphique, commande par checkboxes, plats dessinés en Pygame, et facture avec taxes TPS/TVQ et données météo en temps réel.',
+        tags: ['Python', 'Tkinter', 'Pygame', 'PIL'],
+        date: '2024-09-01', link: null
+      },
+      {
+        title: '🏅 Olympiade — Course aux obstacles',
+        desc: 'Jeu olympique solo/multijoueur avec adversaire IA qui évite les projectiles en temps réel. Classement SQLite, écran de chargement animé, menu principal et podium final.',
+        tags: ['Python', 'Pygame', 'SQLite', 'IA', 'POO'],
+        date: '2024-08-01', link: null
+      }
+    ];
+
+    /* ══════════════════════════════════════════════════════
+       GITHUB SYNC — scans every subfolder in Projects/ and
+       reads its meta.json automatically.
+
+       To add a project: create a folder in Projects/ and
+       add a meta.json inside it. That's it.
+
+       meta.json format:
+       {
+         "title": "♟️ Mon Projet",
+         "desc":  "Description courte.",
+         "tags":  ["C++", "Qt6", "POO"],
+         "date":  "2026-06-13",
+         "link":  "https://github.com/..."
+       }
+
+       Results are cached 5 min in localStorage to avoid
+       hitting the GitHub API rate limit (60 req/hour).
+    ══════════════════════════════════════════════════════ */
+    async function fetchFromGitHub() {
+      // 1. List all folders inside Projects/
+      const dirRes = await fetch(`${API_BASE}/contents/Projects`, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (!dirRes.ok) throw new Error(`Projects/ listing failed: ${dirRes.status}`);
+      const items = await dirRes.json();
+
+      const folders = items.filter(i => i.type === 'dir');
+      if (folders.length === 0) throw new Error('No project folders found');
+
+      // 2. Fetch meta.json for every folder in parallel
+      const results = await Promise.all(folders.map(async folder => {
+        try {
+          const metaRes = await fetch(
+            `${API_BASE}/contents/Projects/${folder.name}/meta.json`,
+            { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+          );
+          if (!metaRes.ok) return null;
+          const file = await metaRes.json();
+          // Properly decode UTF-8 base64 (handles French accents é à è ê ô ...)
+          const b64 = file.content.replace(/\n/g, '');
+          const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+          const text = new TextDecoder('utf-8').decode(bytes);
+          return JSON.parse(text);
+        } catch (e) {
+          console.warn(`meta.json failed for ${folder.name}:`, e);
+          return null;
+        }
+      }));
+
+      const valid = results.filter(Boolean);
+      if (valid.length === 0) throw new Error('All meta.json reads failed');
+      return valid;
+    }
+
+    async function loadProjects() {
+      const dot   = document.getElementById('sync-dot');
+      const label = document.getElementById('sync-label');
+
+      // Check localStorage cache first
+      try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+        if (cached && cached.data?.length > 0 && (Date.now() - cached.ts) < CACHE_TTL) {
+          dot.classList.remove('loading');
+          label.textContent = `Synchronisé avec GitHub · ${new Date(cached.ts).toLocaleDateString('fr-CA')}`;
+          return cached.data;
+        }
+        // Clear stale or empty cache
+        localStorage.removeItem(CACHE_KEY);
+      } catch { localStorage.removeItem(CACHE_KEY); }
+
+      try {
+        const raw = await fetchFromGitHub();
+
+        const projects = raw.map(p => ({
+          ...p,
+          year:  p.date ? p.date.slice(0, 4) : '—',
+          _date: p.date ? new Date(p.date) : new Date(0)
+        })).sort((a, b) => b._date - a._date);
+
+        // Save to cache
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: projects }));
+        } catch { /* storage full — skip */ }
+
+        dot.classList.remove('loading');
+        label.textContent = `Synchronisé avec GitHub · ${new Date().toLocaleDateString('fr-CA')}`;
+        return projects;
+
+      } catch (err) {
+        console.warn('GitHub API indisponible, données locales utilisées :', err.message);
+        dot.classList.remove('loading');
+        dot.classList.add('error');
+        label.textContent = 'Données locales — GitHub indisponible';
+
+        return HARDCODED_PROJECTS.map(p => ({
+          ...p,
+          year:  p.date.slice(0, 4),
+          _date: new Date(p.date)
+        })).sort((a, b) => b._date - a._date);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CARD RENDERING
+    ══════════════════════════════════════════════════════ */
+    function buildCard(p, inModal = false) {
+      const githubBtn = p.link
+        ? `<a href="${p.link}" target="_blank" rel="noopener" class="card-github-link">
+             <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13">
+               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+             </svg>
+             Voir sur GitHub
+           </a>`
+        : '';
+      const tags = p.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
+      return `
+        <div class="card${inModal ? '' : ' reveal'}">
+          <div class="card-year">${p.year}</div>
+          <div class="card-title">${p.title}</div>
+          <div class="card-desc">${p.desc}</div>
+          <div class="card-tags">${tags}</div>
+          ${githubBtn}
+        </div>`;
+    }
+
+    function buildSeeAllCard(count) {
+      return `
+        <div class="card card-see-all reveal" onclick="openModal()" role="button" tabindex="0"
+             onkeydown="if(event.key==='Enter')openModal()">
+          <div class="see-all-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </div>
+          <div class="see-all-count">${count} projets au total</div>
+          <div class="card-title" style="margin-bottom:0.4rem">Voir tout →</div>
+          <div class="card-desc" style="margin-bottom:0">Explorer l'ensemble de mes réalisations académiques et personnelles.</div>
+        </div>`;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       MODAL OPEN / CLOSE
+    ══════════════════════════════════════════════════════ */
+    function openModal() {
+      const modal = document.getElementById('allProjectsModal');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      modal.scrollTop = 0;
+    }
+
+    function closeModal() {
+      document.getElementById('allProjectsModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ══════════════════════════════════════════════════════
+       MAIN INIT
+    ══════════════════════════════════════════════════════ */
+    (async () => {
+      const projects = await loadProjects();
+
+      const featuredGrid  = document.getElementById('featured-grid');
+      const allGrid       = document.getElementById('all-projects-grid');
+      const countLabel    = document.getElementById('modal-count-label');
+
+      // Featured: top 3 + "see all" card
+      const featured = projects.slice(0, 3);
+      featuredGrid.innerHTML =
+        featured.map(p => buildCard(p, false)).join('') +
+        buildSeeAllCard(projects.length);
+
+      // All projects modal
+      allGrid.innerHTML = projects.map(p => buildCard(p, true)).join('');
+      countLabel.textContent = `${projects.length} projets`;
+
+      // Re-run scroll observer on new cards
+      const newCards = featuredGrid.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 80);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      newCards.forEach(el => observer.observe(el));
+    })();
+
+    /* ══════════════════════════════════════════════════════
+       SCROLL REVEAL (for the rest of the page)
+    ══════════════════════════════════════════════════════ */
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
           setTimeout(() => entry.target.classList.add('visible'), i * 60);
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach(el => revealObserver.observe(el));
   </script>
 </body>
 </html>
