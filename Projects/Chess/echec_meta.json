@@ -1,0 +1,7 @@
+{
+  "title": "♟️ Jeu d'Échecs",
+  "desc":  "Jeu d'échecs complet en C++ avec interface Qt6 — 6 types de pièces, détection d'échec et mat, simulation RAII des coups et 4 positions de départ configurables.",
+  "tags":  ["C++", "Qt6", "POO", "H\u00e9ritage"],
+  "date":  "2026-06-13",
+  "link":  null
+}
