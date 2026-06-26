@@ -1,0 +1,7 @@
+{
+  "title": "🚇 Simulateur de file d'attente STM",
+  "desc":  "Simulation d'une station de métro en C++ — passagers réguliers et prioritaires générés aléatoirement, acheminés vers le turniquet le moins occupé. File générique avec templates.",
+  "tags":  ["C++", "POO", "H\u00e9ritage", "Templates", "Structures de donn\u00e9es"],
+  "date":  "2026-04-22",
+  "link":  null
+}
