@@ -1,0 +1,7 @@
+{
+  "title": "🐸 Frogger",
+  "desc":  "Recréation complète du jeu Frogger — moteur de déplacement, voitures et bûches à vitesses aléatoires, détection de collisions par rectangles, gestion des vies et logique de victoire.",
+  "tags":  ["Python", "Pygame", "POO", "D\u00e9tection de collisions"],
+  "date":  "2025-09-01",
+  "link":  null
+}
