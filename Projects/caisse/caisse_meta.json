@@ -1,0 +1,7 @@
+{
+  "title": "🧾 Caisse Enregistreuse",
+  "desc":  "Application de caisse Qt6 avec architecture MVC — ajout/retrait d'articles, calcul automatique des taxes QC (14.975%), signaux Qt et exceptions personnalisées.",
+  "tags":  ["C++", "Qt6", "POO", "MVC"],
+  "date":  "2026-06-13",
+  "link":  null
+}
