@@ -1,0 +1,7 @@
+{
+  "title": " Sorting Algorithm Visualizer",
+  "desc": "Visualiseur interactif d'algorithmes de tri en React — 310 barres générées aléatoirement, animation frame-by-frame du Merge Sort avec code couleur.",
+  "tags": ["React", "JavaScript", "Algorithmes", "Merge Sort", "Visualisation"],
+  "date": "2026-08-20",
+  "link": "https://jeanpauljreissaty.github.io/sorting-algorithm"
+}
