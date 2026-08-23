@@ -1,0 +1,7 @@
+{
+  "title": "Pathfinding Algorithm Visualizer",
+  "desc": "Visualiseur interactif d'algorithmes de recherche de chemin en React — grille cliquable pour placer murs et obstacles, animation frame-by-frame de l'algorithme de Dijkstra avec code couleur.",
+  "tags": ["React", "JavaScript", "Algorithmes", "Dijkstra", "Pathfinding", "Visualisation"],
+  "date": "2026-08-23",
+  "link": "https://jeanpauljreissaty.github.io/pathfinding-algorithm"
+}
